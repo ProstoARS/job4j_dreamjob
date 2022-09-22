@@ -6,12 +6,13 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostStore {
 
     private static final PostStore INST = new PostStore();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
-    private int index = 4;
+    private final AtomicInteger id = new AtomicInteger();
 
     private PostStore() {
         posts.put(1, new Post(1, "Junior Java Job", "some description for junior", LocalDate.now()));
@@ -24,10 +25,19 @@ public class PostStore {
     }
 
     public void add(Post post) {
-        posts.put(index++, post);
+        post.setId(id.incrementAndGet());
+        posts.put(post.getId(), post);
     }
 
     public Collection<Post> findAll() {
         return posts.values();
+    }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    public void update(Post post) {
+        posts.replace(post.getId(), post);
     }
 }

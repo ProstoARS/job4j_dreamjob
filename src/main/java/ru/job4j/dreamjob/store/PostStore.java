@@ -11,6 +11,7 @@ public class PostStore {
 
     private static final PostStore INST = new PostStore();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private int index = 4;
 
     private PostStore() {
         posts.put(1, new Post(1, "Junior Java Job", "some description for junior", LocalDate.now()));
@@ -20,6 +21,10 @@ public class PostStore {
 
     public static PostStore instOf() {
         return INST;
+    }
+
+    public void add(Post post) {
+        posts.put(index++, post);
     }
 
     public Collection<Post> findAll() {

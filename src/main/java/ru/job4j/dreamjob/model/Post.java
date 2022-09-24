@@ -8,7 +8,7 @@ public class Post {
     private int id;
     private String name;
     private String description;
-    private LocalDate created;
+    private LocalDate created = LocalDate.now();
 
     public Post() { }
 

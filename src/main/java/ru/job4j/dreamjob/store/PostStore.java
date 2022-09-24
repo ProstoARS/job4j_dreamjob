@@ -15,9 +15,9 @@ public class PostStore {
     private final AtomicInteger id = new AtomicInteger();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "some description for junior", LocalDate.now()));
-        posts.put(2, new Post(2, "Middle Java Job", "some description for middle", LocalDate.now()));
-        posts.put(3, new Post(3, "Senior Java Job", "some description for senior", LocalDate.now()));
+        add(new Post(1, "Junior Java Job", "some description for junior", LocalDate.now()));
+        add(new Post(2, "Middle Java Job", "some description for middle", LocalDate.now()));
+        add(new Post(3, "Senior Java Job", "some description for senior", LocalDate.now()));
     }
 
     public static PostStore instOf() {

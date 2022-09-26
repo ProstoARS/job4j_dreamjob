@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.PostService;
 
-
 @Controller
 public class PostController {
 
-    private final PostService service = PostService.instOf();
+    private final PostService service;
 
+    public PostController(PostService service) {
+        this.service = service;
+    }
     @GetMapping("/posts")
     public String posts(Model model) {
         model.addAttribute("posts", service.findAll());

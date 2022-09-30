@@ -65,7 +65,7 @@
                     </span>
 
                 </td>
-                <td th:text="${post.city != null} ? ${post.city} : '------'"></td>
+                <td th:text="${post.city != null} ? ${post.city.name} : '------'"></td>
                 <td th:text="${post.description}"></td>
                 <td th:text="${post.created}"></td>
             </tr>

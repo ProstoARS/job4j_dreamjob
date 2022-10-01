@@ -10,6 +10,7 @@ public class Candidate {
     private String description;
     private LocalDate created = LocalDate.now();
     private boolean visible;
+    private byte[] photo;
 
     public Candidate() { }
 
@@ -63,6 +64,14 @@ public class Candidate {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override

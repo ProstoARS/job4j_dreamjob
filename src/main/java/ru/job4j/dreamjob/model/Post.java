@@ -11,6 +11,7 @@ public class Post {
     private LocalDate created = LocalDate.now();
     private boolean visible;
     private City city;
+    private int cityId;
 
     public Post() { }
 
@@ -24,6 +25,15 @@ public class Post {
         this.name = name;
         this.description = description;
         this.created = created;
+    }
+
+    public Post(int id, String name, int cityId, String description, LocalDate created, boolean visible) {
+        this.id = id;
+        this.name = name;
+        this.cityId = cityId;
+        this.description = description;
+        this.created = created;
+        this.visible = visible;
     }
 
     public int getId() {
@@ -72,6 +82,14 @@ public class Post {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     @Override

@@ -14,9 +14,9 @@ public class PostService {
     private final PostDBStore store;
     private final CityService cityService;
 
-    public PostService(PostDBStore store) {
+    public PostService(PostDBStore store, CityService cityService) {
         this.store = store;
-        this.cityService = new CityService();
+        this.cityService = cityService;
     }
 
     public List<Post> findAll() {

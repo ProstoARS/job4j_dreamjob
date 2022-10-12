@@ -1,9 +1,10 @@
 package ru.job4j.dreamjob.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Candidate {
+public class Candidate implements Serializable {
 
     private int id;
     private String name;

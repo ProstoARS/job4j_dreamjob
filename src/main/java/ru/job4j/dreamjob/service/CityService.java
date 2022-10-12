@@ -12,8 +12,8 @@ import java.util.*;
 public class CityService {
     private final CityStore cityStore;
 
-    public CityService() {
-        this.cityStore = new CityStore();
+    public CityService(CityStore cityStore) {
+        this.cityStore = cityStore;
     }
 
     public Collection<City> findAll() {

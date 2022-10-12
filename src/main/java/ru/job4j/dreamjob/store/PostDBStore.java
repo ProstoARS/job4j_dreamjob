@@ -51,14 +51,8 @@ public class PostDBStore {
     public void add(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     INSERT,
-                     PreparedStatement.RETURN_GENERATED_KEYS)
-        ) {
-            ps.setString(1, post.getName());
-            ps.setInt(2, post.getCity().getId());
-            ps.setString(3, post.getDescription());
-            ps.setTimestamp(4, Timestamp.valueOf(post.getCreated().atStartOfDay()));
-            ps.setBoolean(5, post.isVisible());
+                     INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            setPost(post, ps);
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -73,11 +67,7 @@ public class PostDBStore {
     public void update(Post post) {
         try (Connection cn = pool.getConnection();
         PreparedStatement ps = cn.prepareStatement(UPDATE)) {
-            ps.setString(1, post.getName());
-            ps.setInt(2, post.getCity().getId());
-            ps.setString(3, post.getDescription());
-            ps.setTimestamp(4, Timestamp.valueOf(post.getCreated().atStartOfDay()));
-            ps.setBoolean(5, post.isVisible());
+            setPost(post, ps);
             ps.setInt(6, post.getId());
             ps.execute();
         } catch (SQLException e) {
@@ -109,5 +99,13 @@ public class PostDBStore {
                 resultSet.getTimestamp("created").toLocalDateTime().toLocalDate(),
                 resultSet.getBoolean("visible")
         );
+    }
+
+    private void setPost(Post post, PreparedStatement ps) throws SQLException {
+        ps.setString(1, post.getName());
+        ps.setInt(2, post.getCity().getId());
+        ps.setString(3, post.getDescription());
+        ps.setTimestamp(4, Timestamp.valueOf(post.getCreated().atStartOfDay()));
+        ps.setBoolean(5, post.isVisible());
     }
 }

@@ -18,9 +18,12 @@ public class CandidateStore {
     private final AtomicInteger id = new AtomicInteger();
 
     private CandidateStore() {
-        add(new Candidate(1, "Junior Java Candidate", "some description for junior", LocalDate.now()));
-        add(new Candidate(2, "Middle Java Candidate", "some description for middle", LocalDate.now()));
-        add(new Candidate(3, "Senior Java Candidate", "some description for senior", LocalDate.now()));
+        add(new Candidate(1, "Junior Java Candidate", "some description for junior",
+                LocalDate.now(), false));
+        add(new Candidate(2, "Middle Java Candidate", "some description for middle",
+                LocalDate.now(), false));
+        add(new Candidate(3, "Senior Java Candidate", "some description for senior",
+                LocalDate.now(), false));
     }
 
     public Collection<Candidate> findAll() {

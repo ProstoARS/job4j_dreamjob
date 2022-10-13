@@ -4,5 +4,5 @@ CREATE TABLE if NOT Exists candidates (
    description text,
    created timestamp,
    visible boolean not null,
-   photo bytea;
+   photo bytea
 );

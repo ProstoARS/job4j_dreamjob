@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class CandidateDBStore {
 
-    private static final Logger LOG = LogManager.getLogger(PostDBStore.class);
+    private static final Logger LOG = LogManager.getLogger(CandidateDBStore.class);
 
     private static final String FIND_ALL = "SELECT * FROM candidates";
     private static final String INSERT = "INSERT INTO candidates("
@@ -83,14 +83,14 @@ public class CandidateDBStore {
         return null;
     }
 
-    private Candidate createCandidate(ResultSet it) throws SQLException {
+    private Candidate createCandidate(ResultSet rs) throws SQLException {
         return new Candidate(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getString("description"),
-                it.getTimestamp("created").toLocalDateTime().toLocalDate(),
-                it.getBoolean("visible"),
-                it.getBytes("photo")
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getTimestamp("created").toLocalDateTime().toLocalDate(),
+                rs.getBoolean("visible"),
+                rs.getBytes("photo")
         );
     }
 

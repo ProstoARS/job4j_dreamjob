@@ -23,7 +23,7 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Dream Job, <small th:text="${user}"></small></a>
+        <a class="navbar-brand" href="#">Dream Job</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,39 +32,35 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
-                <a class="nav-item nav-link active" th:href="@{/addPost}">Добавить вакансию</a>
-                <a class="nav-item nav-link" th:href="@{/cadidates}">Кандидаты</a>
-                <a class="nav-item nav-link" th:href="@{/registration}">Регистрация пользователя</a>
+                <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
+                <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
+                <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                <a class="nav-item nav-link active" href="#">Регистрация пользователя<span
+                        class="sr-only">(current)</span></a>
             </div>
         </div>
     </nav>
-    <div class="row pt-3">
-        <div class="card" style="width: 100%">
+    <div class="row pt-5 justify-content-center">
+        <div class="card text-center" style="width: 30%">
             <div class="card-header">
-                Редатирование кандидата.
+                Регистрация пользователя.
             </div>
-            <div class="card-body">
-                <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}" enctype="multipart/form-data">
-                    <input type="hidden" name="id" th:field="*{id}"/>
-                    <div class="form-group">
-                        <label for="name">Имя</label>
-                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Описание</label>
-                        <input type="text" class="form-control" name="desc" id="desc" th:field="*{description}">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Фотография</label>
-                        <input type="file" class="form-control" name="file" id="file">
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="visible" class="form-check-input" id="visible">
-                        <label class="form-check-label" for="visible">Опубликовать</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                </form>
-            </div>
+            <form th:action="@{/registration}" method="POST">
+                <div class="form-group pl-3 pr-3 pt-2">
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" name="name" id="name">
+                </div>
+                <div class="form-group pl-3 pr-3">
+                    <label for="name">email</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                </div>
+                <div class="form-group pl-3 pr-3">
+                    <label for="name">password</label>
+                    <input type="text" class="form-control" name="password" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+            <div th:if="${fail}" class="alert alert-success" role="alert" th:text="${message}"></div>
         </div>
     </div>
 </div>

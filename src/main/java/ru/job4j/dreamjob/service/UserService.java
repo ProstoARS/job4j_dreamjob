@@ -22,7 +22,14 @@ public class UserService {
         return store.add(user);
     }
 
-    public Optional<User> findByEmail(String email) {
-        return store.findByEmail(email);
+    public Optional<User> findUserByEmailAndPwd(String email, String pwd) {
+        Optional<User> userFromDB = store.findByEmail(email);
+        if (userFromDB.isPresent()) {
+            User user = userFromDB.get();
+            if (user.getPassword().equals(pwd)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 }

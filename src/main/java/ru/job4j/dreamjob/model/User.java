@@ -63,11 +63,11 @@ public class User implements Serializable {
         if (!(o instanceof User user)) {
             return false;
         }
-        return id == user.id && name.equals(user.name) && password.equals(user.password) && email.equals(user.email);
+        return id == user.id && email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, password, email);
+        return Objects.hash(id, email);
     }
 }

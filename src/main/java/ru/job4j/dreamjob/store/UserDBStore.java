@@ -44,21 +44,21 @@ public class UserDBStore {
         return Optional.of(user);
     }
 
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_EMAIL)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new User(
+                return Optional.of(new User(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4));
+                        rs.getString(4)));
             }
         } catch (SQLException exception) {
             LOG.error(exception.getMessage(), exception);
         }
-        return null;
+        return Optional.empty();
     }
 }

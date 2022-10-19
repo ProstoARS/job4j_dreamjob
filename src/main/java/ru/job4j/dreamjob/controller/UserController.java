@@ -23,6 +23,11 @@ public class UserController {
         this.service = service;
     }
 
+    @GetMapping("/formRegistration")
+    public String formRegistration(Model model) {
+        return "/registration";
+    }
+
     @PostMapping("/registration")
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = service.add(user);
@@ -41,7 +46,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user) {
-        Optional<User> userDb = service.findUserByEmailAndPwd(
+        Optional<User> userDb = service.findUser(
                 user.getEmail(), user.getPassword()
         );
         if (userDb.isEmpty()) {

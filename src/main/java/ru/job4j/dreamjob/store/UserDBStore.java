@@ -19,7 +19,7 @@ public class UserDBStore {
     private static final Logger LOG = LogManager.getLogger(UserDBStore.class);
 
     private static final String INSERT = "INSERT INTO users (name, email, password) VALUES (?,?,?)";
-    private static final String FIND_BY_EMAIL = "SELECT * FROM users WHERE email = '?'";
+    private static final String FIND_USER = "SELECT * FROM users WHERE email = '?' AND password = '?'";
 
     private final BasicDataSource pool;
 
@@ -44,10 +44,11 @@ public class UserDBStore {
         return Optional.of(user);
     }
 
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findUser(String email, String password) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(FIND_BY_EMAIL)) {
+             PreparedStatement ps = cn.prepareStatement(FIND_USER)) {
             ps.setString(1, email);
+            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return Optional.of(new User(

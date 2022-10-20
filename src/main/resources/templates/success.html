@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <title>Работа мечты</title>
+    <title>Dream Job!</title>
 </head>
 <body>
 <div class="container">
@@ -30,38 +30,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
+                <a class="nav-item nav-link active" href="#">Главная <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
                 <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
                 <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
                 <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
-                <a class="nav-item nav-link active" href="#">Регистрация пользователя<span
-                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/formRegistration}">Регистрация пользователя</a>
+<!--                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">-->
+<!--                    <span th:text="${user.name}"></span>-->
+<!--                    <span> | Войти</span>-->
+<!--                </a>-->
+<!--                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">-->
+<!--                    <span th:text="${user.name}"></span>-->
+<!--                    <span> | Выйти</span>-->
+<!--                </a>-->
             </div>
         </div>
     </nav>
     <div class="row pt-5 justify-content-center">
         <div class="card text-center" style="width: 30%">
             <div class="card-header">
-                Регистрация пользователя.
+            <h5>Регистрация прошла успешно!</h5>
             </div>
-            <div th:if="${fail}" class="alert alert-danger" role="alert">
-                Пользователь с такой почтой уже существует!
-            </div>
-            <form th:action="@{/registration}" method="POST">
-                <div class="form-group pl-3 pr-3 pt-2">
-                    <label for="name">Имя</label>
-                    <input type="text" class="form-control" name="name" id="name">
-                </div>
-                <div class="form-group pl-3 pr-3">
-                    <label for="name">email</label>
-                    <input type="text" class="form-control" name="email" id="email">
-                </div>
-                <div class="form-group pl-3 pr-3">
-                    <label for="name">password</label>
-                    <input type="text" class="form-control" name="password" id="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col-md-7"></div>
+        <div class="col-md-5">
+            <form th:action="@{/index}">
+                <button type="submit" class="btn btn-primary">На главную</button>
             </form>
         </div>
     </div>

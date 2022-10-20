@@ -19,7 +19,7 @@ public class UserDBStore {
     private static final Logger LOG = LogManager.getLogger(UserDBStore.class);
 
     private static final String INSERT = "INSERT INTO users (name, email, password) VALUES (?,?,?)";
-    private static final String FIND_USER = "SELECT * FROM users WHERE email = '?' AND password = '?'";
+    private static final String FIND_USER = "SELECT * FROM users WHERE email = ? AND password = ?";
 
     private final BasicDataSource pool;
 
@@ -35,7 +35,9 @@ public class UserDBStore {
             ps.setString(3, user.getPassword());
             ps.execute();
             try (ResultSet rs = ps.getGeneratedKeys()) {
-                user.setId(rs.getInt(1));
+                if (rs.next()) {
+                    user.setId(rs.getInt(1));
+                }
             }
         } catch (SQLException exception) {
             LOG.error(exception.getMessage(), exception);
@@ -44,7 +46,7 @@ public class UserDBStore {
         return Optional.of(user);
     }
 
-    public Optional<User> findUser(String email, String password) {
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_USER)) {
             ps.setString(1, email);
@@ -52,10 +54,10 @@ public class UserDBStore {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return Optional.of(new User(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4)));
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password")));
             }
         } catch (SQLException exception) {
             LOG.error(exception.getMessage(), exception);

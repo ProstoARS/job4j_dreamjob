@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
+import ru.job4j.dreamjob.util.SessionUser;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @ThreadSafe
@@ -26,13 +28,15 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model) {
+    public String candidates(Model model, HttpSession session) {
+        model.addAttribute("user", SessionUser.getSessionUser(session));
         model.addAttribute("candidates", service.findAll());
         return "candidates";
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession session) {
+        model.addAttribute("user", SessionUser.getSessionUser(session));
         model.addAttribute("candidate", new Candidate(0, "Заполните поле"));
         return "addCandidate";
     }
@@ -54,7 +58,8 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
+        model.addAttribute("user", SessionUser.getSessionUser(session));
         model.addAttribute("candidate", service.findById(id));
         return "updateCandidate";
     }

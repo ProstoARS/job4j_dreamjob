@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
+import ru.job4j.dreamjob.util.SessionUser;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
@@ -24,13 +28,15 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public String posts(Model model) {
+    public String posts(Model model, HttpSession session) {
+        model.addAttribute("user", SessionUser.getSessionUser(session));
         model.addAttribute("posts", postService.findAll());
         return "posts";
     }
 
     @GetMapping("/formAddPost")
-    public String addPost(Model model) {
+    public String addPost(Model model, HttpSession session) {
+        model.addAttribute("user", SessionUser.getSessionUser(session));
         model.addAttribute("post", new Post(0, "Заполните поле"));
         model.addAttribute("cities", cityService.findAll());
         return "addPost";
@@ -51,7 +57,8 @@ public class PostController {
     }
 
     @GetMapping("/formUpdatePost/{postId}")
-    public String formUpdatePost(Model model, @PathVariable("postId") int id) {
+    public String formUpdatePost(Model model, @PathVariable("postId") int id, HttpSession session) {
+        model.addAttribute("user", SessionUser.getSessionUser(session));
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("cities", cityService.findAll());
         return "updatePost";

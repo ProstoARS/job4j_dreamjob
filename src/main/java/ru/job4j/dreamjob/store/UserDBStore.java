@@ -46,6 +46,9 @@ public class UserDBStore {
         return Optional.of(user);
     }
 
+    /*
+    Изменил название и поиск.
+    */
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_USER)) {

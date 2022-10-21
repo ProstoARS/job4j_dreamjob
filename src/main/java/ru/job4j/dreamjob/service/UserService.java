@@ -22,6 +22,9 @@ public class UserService {
         return store.add(user);
     }
 
+    /*
+    Тут просто сквозной сделал.
+    */
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
         return store.findUserByEmailAndPassword(email, password);
     }

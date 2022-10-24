@@ -10,7 +10,7 @@ import java.util.Set;
 @Component
 public class AuthFilter implements Filter {
 
-    private final Set<String> addresses = Set.of(
+    private static final Set<String> ADDRESS = Set.of(
             "loginPage",
             "login",
             "formRegistration",
@@ -37,7 +37,7 @@ public class AuthFilter implements Filter {
         chain.doFilter(req, res);
     }
 
-    private Boolean findAddress(String uri) {
-        return addresses.stream().anyMatch(uri::endsWith);
+    private boolean findAddress(String uri) {
+        return ADDRESS.stream().anyMatch(uri::endsWith);
     }
 }
